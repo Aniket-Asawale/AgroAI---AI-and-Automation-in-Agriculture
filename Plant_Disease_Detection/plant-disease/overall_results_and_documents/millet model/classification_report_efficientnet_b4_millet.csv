@@ -1,0 +1,7 @@
+,precision,recall,f1-score,support
+millet_blast,1.0,1.0,1.0,100.0
+millet_healthy,1.0,1.0,1.0,100.0
+millet_rust,1.0,1.0,1.0,100.0
+accuracy,1.0,1.0,1.0,1.0
+macro avg,1.0,1.0,1.0,300.0
+weighted avg,1.0,1.0,1.0,300.0

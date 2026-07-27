@@ -1,0 +1,647 @@
+{
+  "corn_blight": {
+    "crop": "Corn",
+    "type": "Fungal",
+    "symptoms": [
+      "Long cigar-shaped lesions",
+      "Gray-green leaf spots",
+      "Premature drying of leaves"
+    ],
+    "chemical_treatment": {
+      "medicine": "Mancozeb 75% WP",
+      "dosage": "2.5 g/L",
+      "frequency": "2 sprays at 10-day interval"
+    },
+    "organic_treatment": {
+      "medicine": "Trichoderma viride",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Use resistant varieties",
+      "Avoid overhead irrigation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "corn_common_rust": {
+    "crop": "Corn",
+    "type": "Fungal",
+    "symptoms": [
+      "Reddish-brown pustules",
+      "Yellow halos",
+      "Reduced photosynthesis"
+    ],
+    "chemical_treatment": {
+      "medicine": "Propiconazole",
+      "dosage": "1 ml/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Early monitoring",
+      "Destroy infected debris",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "corn_gray_spot": {
+    "crop": "Corn",
+    "type": "Fungal",
+    "symptoms": [
+      "Rectangular gray lesions",
+      "Leaf blight"
+    ],
+    "chemical_treatment": {
+      "medicine": "Azoxystrobin",
+      "dosage": "1 ml/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Compost tea",
+      "dosage": "Weekly spray"
+    },
+    "precautions": [
+      "Crop rotation",
+      "Good drainage",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "corn_healthy": {
+    "crop": "Corn",
+    "type": "Healthy",
+    "symptoms": [
+      "Green healthy leaves",
+      "Normal growth"
+    ],
+    "chemical_treatment": {
+      "medicine": "Not required",
+      "dosage": "-",
+      "frequency": "-"
+    },
+    "organic_treatment": {
+      "medicine": "Balanced nutrition",
+      "dosage": "-"
+    },
+    "precautions": [
+      "Regular monitoring",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "rice_bacterialblight": {
+    "crop": "Rice",
+    "type": "Bacterial",
+    "symptoms": [
+      "Yellowing leaf margins",
+      "Wilting",
+      "Water-soaked lesions"
+    ],
+    "chemical_treatment": {
+      "medicine": "Streptocycline",
+      "dosage": "0.1 g/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Pseudomonas fluorescens",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Avoid excess nitrogen",
+      "Use resistant varieties",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "rice_brownspot": {
+    "crop": "Rice",
+    "type": "Fungal",
+    "symptoms": [
+      "Brown circular spots",
+      "Leaf drying"
+    ],
+    "chemical_treatment": {
+      "medicine": "Carbendazim",
+      "dosage": "1 g/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Seed treatment",
+      "Balanced fertilization",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "rice_leafsmut": {
+    "crop": "Rice",
+    "type": "Fungal",
+    "symptoms": [
+      "Black powdery spots",
+      "Poor grain quality"
+    ],
+    "chemical_treatment": {
+      "medicine": "Propiconazole",
+      "dosage": "1 ml/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Trichoderma",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Field sanitation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "millet_blast": {
+    "crop": "Millet",
+    "type": "Fungal",
+    "symptoms": [
+      "Diamond lesions",
+      "White centers",
+      "Poor grain filling"
+    ],
+    "chemical_treatment": {
+      "medicine": "Tricyclazole",
+      "dosage": "0.6 g/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Pseudomonas fluorescens",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Avoid excess nitrogen",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "millet_rust": {
+    "crop": "Millet",
+    "type": "Fungal",
+    "symptoms": [
+      "Reddish pustules",
+      "Leaf yellowing"
+    ],
+    "chemical_treatment": {
+      "medicine": "Hexaconazole",
+      "dosage": "1 ml/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Crop rotation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "millet_healthy": {
+    "crop": "Millet",
+    "type": "Healthy",
+    "symptoms": [
+      "Green leaves",
+      "Normal growth"
+    ],
+    "chemical_treatment": {
+      "medicine": "Not required",
+      "dosage": "-"
+    },
+    "organic_treatment": {
+      "medicine": "Balanced nutrition",
+      "dosage": "-"
+    },
+    "precautions": [
+      "Regular monitoring",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "sugarcane_red_rot": {
+    "crop": "Sugarcane",
+    "type": "Fungal",
+    "symptoms": [
+      "Red stalk discoloration",
+      "Dry leaves"
+    ],
+    "chemical_treatment": {
+      "medicine": "Carbendazim",
+      "dosage": "1 g/L",
+      "frequency": "Sett treatment + spray"
+    },
+    "organic_treatment": {
+      "medicine": "Trichoderma",
+      "dosage": "10 g/L"
+    },
+    "precautions": [
+      "Use disease-free setts",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "sugarcane_rust": {
+    "crop": "Sugarcane",
+    "type": "Fungal",
+    "symptoms": [
+      "Brown rust pustules"
+    ],
+    "chemical_treatment": {
+      "medicine": "Propiconazole",
+      "dosage": "1 ml/L",
+      "frequency": "2 sprays"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Good air circulation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "sugarcane_mosaic": {
+    "crop": "Sugarcane",
+    "type": "Viral",
+    "symptoms": [
+      "Mosaic leaf patterns",
+      "Stunted growth"
+    ],
+    "chemical_treatment": {
+      "medicine": "No chemical control",
+      "dosage": "-"
+    },
+    "organic_treatment": {
+      "medicine": "Remove infected plants",
+      "dosage": "-"
+    },
+    "precautions": [
+      "Use virus-free material",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "sugarcane_yellow_leaf": {
+    "crop": "Sugarcane",
+    "type": "Physiological/Viral",
+    "symptoms": [
+      "Yellow midrib",
+      "Yield reduction"
+    ],
+    "chemical_treatment": {
+      "medicine": "Micronutrient spray",
+      "dosage": "As recommended"
+    },
+    "organic_treatment": {
+      "medicine": "Organic compost",
+      "dosage": "Field application"
+    },
+    "precautions": [
+      "Balanced nutrition",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "sugarcane_healthy": {
+    "crop": "Sugarcane",
+    "type": "Healthy",
+    "symptoms": [
+      "Healthy green leaves"
+    ],
+    "chemical_treatment": {
+      "medicine": "Not required",
+      "dosage": "-"
+    },
+    "organic_treatment": {
+      "medicine": "Organic manure",
+      "dosage": "-"
+    },
+    "precautions": [
+      "Regular monitoring",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_aphid": {
+    "crop": "Wheat",
+    "type": "Insect Pest",
+    "symptoms": [
+      "Aphid clusters",
+      "Leaf curling",
+      "Honeydew secretion"
+    ],
+    "chemical_treatment": {
+      "medicine": "Imidacloprid",
+      "dosage": "0.3 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Encourage predators",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_black_rust": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Black pustules",
+      "Weak stems"
+    ],
+    "chemical_treatment": {
+      "medicine": "Propiconazole",
+      "dosage": "1 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Trichoderma",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Resistant varieties",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_blast": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Bleached heads",
+      "Shriveled grains"
+    ],
+    "chemical_treatment": {
+      "medicine": "Tricyclazole",
+      "dosage": "0.6 g/L"
+    },
+    "organic_treatment": {
+      "medicine": "Pseudomonas fluorescens",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Avoid late sowing",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_brown_rust": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Brown pustules",
+      "Premature leaf drying"
+    ],
+    "chemical_treatment": {
+      "medicine": "Hexaconazole",
+      "dosage": "1 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Regular inspection",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_common_root_rot": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Brown roots",
+      "Poor tillering"
+    ],
+    "chemical_treatment": {
+      "medicine": "Carbendazim",
+      "dosage": "2 g/kg seed"
+    },
+    "organic_treatment": {
+      "medicine": "Trichoderma",
+      "dosage": "10 g/kg seed"
+    },
+    "precautions": [
+      "Avoid waterlogging",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_fusarium_head_blight": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Bleached spikelets",
+      "Pink fungal growth"
+    ],
+    "chemical_treatment": {
+      "medicine": "Tebuconazole",
+      "dosage": "1 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Bacillus subtilis",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Avoid maize-wheat rotation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_healthy": {
+    "crop": "Wheat",
+    "type": "Healthy",
+    "symptoms": [
+      "Green leaves",
+      "Normal tillering"
+    ],
+    "chemical_treatment": {
+      "medicine": "Not required",
+      "dosage": "-"
+    },
+    "organic_treatment": {
+      "medicine": "Balanced nutrition",
+      "dosage": "-"
+    },
+    "precautions": [
+      "Maintain soil fertility",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_leaf_blight": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Elongated brown lesions"
+    ],
+    "chemical_treatment": {
+      "medicine": "Mancozeb",
+      "dosage": "2.5 g/L"
+    },
+    "organic_treatment": {
+      "medicine": "Neem extract",
+      "dosage": "5 ml/L"
+    },
+    "precautions": [
+      "Avoid excess irrigation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_mildew": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "White powdery growth"
+    ],
+    "chemical_treatment": {
+      "medicine": "Sulfur WP",
+      "dosage": "2 g/L"
+    },
+    "organic_treatment": {
+      "medicine": "Milk spray",
+      "dosage": "10% solution"
+    },
+    "precautions": [
+      "Good air circulation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_mite": {
+    "crop": "Wheat",
+    "type": "Insect Pest",
+    "symptoms": [
+      "Leaf curling",
+      "Yellow streaks"
+    ],
+    "chemical_treatment": {
+      "medicine": "Propargite",
+      "dosage": "1 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Avoid dusty fields",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_septoria": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Irregular brown spots",
+      "Black pycnidia"
+    ],
+    "chemical_treatment": {
+      "medicine": "Chlorothalonil",
+      "dosage": "2 g/L"
+    },
+    "organic_treatment": {
+      "medicine": "Compost tea",
+      "dosage": "Weekly"
+    },
+    "precautions": [
+      "Destroy crop residues",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_smut": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Black powdery grains"
+    ],
+    "chemical_treatment": {
+      "medicine": "Carboxin",
+      "dosage": "2 g/kg seed"
+    },
+    "organic_treatment": {
+      "medicine": "Hot water seed treatment",
+      "dosage": "As recommended"
+    },
+    "precautions": [
+      "Use certified seeds",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_stem_fly": {
+    "crop": "Wheat",
+    "type": "Insect Pest",
+    "symptoms": [
+      "Dead hearts",
+      "Dry central shoot"
+    ],
+    "chemical_treatment": {
+      "medicine": "Chlorpyrifos",
+      "dosage": "2 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Neem cake",
+      "dosage": "Soil application"
+    },
+    "precautions": [
+      "Early sowing",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_tan_spot": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Tan lesions",
+      "Yellow halos"
+    ],
+    "chemical_treatment": {
+      "medicine": "Propiconazole",
+      "dosage": "1 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Trichoderma",
+      "dosage": "5 g/L"
+    },
+    "precautions": [
+      "Crop rotation",
+      "Consult local agricultural officer"
+    ]
+  },
+
+  "wheat_yellow_rust": {
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": [
+      "Yellow stripe pustules",
+      "Leaf chlorosis"
+    ],
+    "chemical_treatment": {
+      "medicine": "Tebuconazole",
+      "dosage": "1 ml/L"
+    },
+    "organic_treatment": {
+      "medicine": "Neem oil",
+      "dosage": "3 ml/L"
+    },
+    "precautions": [
+      "Early disease scouting",
+      "Consult local agricultural officer"
+    ]
+  }
+}
