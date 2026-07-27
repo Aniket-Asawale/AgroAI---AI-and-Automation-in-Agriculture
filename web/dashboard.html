@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Dashboard — AgroAI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="AgroAI home">
+        <span class="nav-logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 21.5V11" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 12.5C12 8 8.7 4.5 3.5 4.5c0 5 3.3 8 8.5 8z" fill="#fff"/>
+            <path d="M12.4 14.5c0-3.6 3.1-6.6 8.1-6.6 0 4.6-3.6 6.6-8.1 6.6z" fill="rgba(255,255,255,0.82)"/>
+          </svg>
+        </span>
+        <span class="nav-logo-text"><span class="agro">Agro</span><span class="ai">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a id="signout-btn" class="nav-login">Sign out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-tag">Your Workspace</div>
+      <h1 class="section-title" style="text-align:left;">Welcome, <span id="user-name" class="gradient-text">farmer</span></h1>
+      <p class="section-desc" style="margin:0;">
+        Signed in as <span id="user-email">—</span>. This is your personalized hub —
+        farm profile, recommendations and diagnosis history will appear here.
+      </p>
+
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="card-icon green">🌾</div>
+          <h3>My Farm Profile</h3>
+          <p>Save your plot location, soil type and area so recommendations are tailored to your land.</p>
+        </div>
+        <div class="dash-card">
+          <div class="card-icon amber">📋</div>
+          <h3>Recent Recommendations</h3>
+          <p>Your saved crop recommendations and rotation plans will be listed here.</p>
+        </div>
+        <div class="dash-card">
+          <div class="card-icon blue">🔬</div>
+          <h3>Sensor Snapshot</h3>
+          <p>Latest NPK, pH, moisture and EC readings linked to your account.</p>
+        </div>
+        <div class="dash-card">
+          <div class="card-icon rose">🍃</div>
+          <h3>Diagnosis History</h3>
+          <p>Leaf disease scans you've run, with treatment notes saved over time.</p>
+        </div>
+      </div>
+
+      <p class="auth-toggle" style="text-align:left; margin-top:28px;">
+        These panels are placeholders — data binding lands once your Supabase tables &amp; RLS policies are set up.
+      </p>
+    </div>
+  </section>
+
+  <script type="module">
+    import { requireAuth, signOut } from "./auth.js";
+
+    (async () => {
+      const user = await requireAuth(); // redirects to login.html if not signed in
+      if (!user) return;
+      document.getElementById("user-email").textContent = user.email || "—";
+      const name = user.user_metadata?.full_name || user.user_metadata?.name
+        || (user.email ? user.email.split("@")[0] : "farmer");
+      document.getElementById("user-name").textContent = name;
+    })();
+
+    document.getElementById("signout-btn").addEventListener("click", async () => {
+      await signOut();
+    });
+  </script>
+  <script src="main.js" defer></script>
+</body>
+</html>

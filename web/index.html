@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#16a34a">
+  <meta name="description"
+    content="AgroAI — AI-powered precision agriculture. Real-time soil sensors, calibrated crop recommendations, and leaf disease detection for farmers in Maharashtra, India.">
+  <meta name="keywords"
+    content="agriculture AI, precision farming, soil sensor, crop recommendation, disease detection, Maharashtra, IoT farming, AgroAI">
+  <meta property="og:title" content="AgroAI — Precision Agriculture, Grounded in Real Soil Data">
+  <meta property="og:description" content="Turn live soil data into clear, honest crop guidance with AI.">
+  <meta property="og:type" content="website">
+  <title>AgroAI — Precision Agriculture, Grounded in Real Soil Data</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <!-- No-flash theme -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('agroai-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+
+      <a href="/" class="nav-logo" aria-label="AgroAI home" id="home-btn">
+        <span class="nav-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22V12" stroke="#fff" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M12 13C12 8.5 8.5 5 3.5 5c0 5 3.5 8 8.5 8z" fill="#fff" />
+            <path d="M12.5 15c0-3.5 3-6.5 7.5-6.5 0 4.5-3.5 6.5-7.5 6.5z" fill="rgba(255,255,255,0.8)" />
+          </svg>
+        </span>
+        <span class="nav-logo-text"><span class="agro">Agro</span><span class="ai">AI</span></span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#applications">Applications</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#who">Who It's For</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8" />
+          </svg>
+        </button>
+        <a href="login.html" class="nav-login" id="nav-account">Sign In</a>
+        <a href="https://api.agroaiapp.me/docs" target="_blank" rel="noopener" class="nav-cta btn">
+          API Docs <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
+        </a>
+        <button class="nav-mobile-toggle" id="mobile-menu-btn" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ═══════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left: Text content -->
+        <div class="hero-left">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Live in the field · Maharashtra, India
+          </div>
+
+          <h1>
+            Farming decisions<br>
+            grounded in <em>real soil data</em>
+          </h1>
+
+          <p class="hero-subtitle">
+            AgroAI combines live IoT soil sensors, calibrated machine learning,
+            and an AI second opinion to give farmers guidance they can actually trust —
+            not generic averages, but readings from <em>your</em> land.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://croprecommendationengine.streamlit.app" target="_blank" rel="noopener"
+              class="btn btn-primary btn-lg" id="cta-recommendation">
+              🌾 Get a Recommendation
+            </a>
+            <a href="#how" class="btn btn-secondary btn-lg" id="cta-how">
+              See how it works
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-num" data-count="40" data-suffix="+">40+</div>
+              <div class="hero-stat-label">Agronomic Features</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num" data-count="30" data-suffix="+">30+</div>
+              <div class="hero-stat-label">Crop Models</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num" data-count="5">5</div>
+              <div class="hero-stat-label">Microservices</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visual card -->
+        <div class="hero-right">
+          <div class="hero-visual">
+            <div class="hero-img-wrap">
+              <img src="public/hero-field.png" alt="Precision agriculture field in Maharashtra" loading="eager">
+              <div
+                style="position:absolute;inset:0;background:linear-gradient(to right, transparent 40%, rgba(22,163,74,0.15) 100%);">
+              </div>
+            </div>
+
+            <!-- Floating Dashboard Card -->
+            <div class="hero-dash-card" id="hero-dash-card">
+              <div class="hero-dash-label">Live Soil Reading</div>
+              <div class="sensor-chips">
+                <span class="sensor-chip">N: 72 ppm</span>
+                <span class="sensor-chip">P: 45 ppm</span>
+                <span class="sensor-chip">K: 88 ppm</span>
+                <span class="sensor-chip">pH: 6.8</span>
+              </div>
+              <div class="confidence-row">
+                <span class="conf-label">🌾 Wheat</span>
+                <span class="conf-val">89.3%</span>
+              </div>
+              <div class="conf-bar">
+                <div class="conf-bar-fill"></div>
+              </div>
+            </div>
+
+            <!-- Top floating chip -->
+            <div class="hero-floating-chip">
+              <span>🤝</span>
+              ML + AI cross-verified
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TRUST BAND
+  ═══════════════════════════════════ -->
+  <div class="trust-band">
+    <div class="container">
+      <div class="trust-band-inner">
+        <div class="trust-item">
+          <span>🔬</span>
+          <div><strong>5-in-1</strong> Soil Sensor Probe</div>
+        </div>
+        <div class="trust-item">
+          <span>🎯</span>
+          <div><strong>97%</strong> max confidence (calibrated)</div>
+        </div>
+        <div class="trust-item">
+          <span>🤝</span>
+          <div><strong>Dual</strong> ML + LLM cross-check</div>
+        </div>
+        <div class="trust-item">
+          <span>☁️</span>
+          <div><strong>24/7</strong> via Cloudflare & Supabase</div>
+        </div>
+        <div class="trust-item">
+          <span>📡</span>
+          <div><strong>REST API</strong> for developers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       APPLICATIONS
+  ═══════════════════════════════════ -->
+  <section id="applications">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-tag">Platform Applications</div>
+        <h2 class="section-title">Five integrated services, one platform</h2>
+        <p class="section-desc">
+          From live soil readings to leaf disease diagnosis, every tool in the AgroAI
+          ecosystem is connected, documented, and accessible via REST API.
+        </p>
+      </div>
+
+      <div class="apps-grid" data-stagger>
+        <!-- API Gateway -->
+        <a href="https://api.agroaiapp.me/docs" target="_blank" rel="noopener" class="app-card">
+          <div class="app-card-header">
+            <div class="app-icon green">📡</div>
+            <span class="app-status live">Live</span>
+          </div>
+          <h3>API Gateway</h3>
+          <p>Unified entry point for all services. Full Swagger / OpenAPI documentation, rate limiting, and intelligent
+            request routing.</p>
+          <div class="app-card-footer">
+            <span class="app-link">api.agroaiapp.me/docs →</span>
+            <span class="app-tag">REST</span>
+          </div>
+        </a>
+
+        <!-- Crop Recommendation -->
+        <a href="https://croprecommendationengine.streamlit.app" target="_blank" rel="noopener" class="app-card">
+          <div class="app-card-header">
+            <div class="app-icon amber">🌾</div>
+            <span class="app-status live">Live</span>
+          </div>
+          <h3>Crop Recommendation</h3>
+          <p>ML-powered crop prediction using a calibrated gradient-boosted ensemble across 40 agronomic features.
+            Includes rotation planning and soil amendment calculations.</p>
+          <div class="app-card-footer">
+            <span class="app-link">Open Dashboard →</span>
+            <span class="app-tag">Streamlit</span>
+          </div>
+        </a>
+
+        <!-- IoT Sensor Hub -->
+        <a href="https://sensor-dashboard.agroaiapp.me" target="_blank" rel="noopener" class="app-card">
+          <div class="app-card-header">
+            <div class="app-icon blue">🔬</div>
+            <span class="app-status live">Live</span>
+          </div>
+          <h3>IoT Sensor Hub</h3>
+          <p>Real-time 5-in-1 NPK, pH, temperature, moisture and EC data via RS-485 Modbus RTU. Live dashboard with
+            historical trends and anomaly detection.</p>
+          <div class="app-card-footer">
+            <span class="app-link">Sensor Dashboard →</span>
+            <span class="app-tag">WebSocket</span>
+          </div>
+        </a>
+
+        <!-- Disease Detection -->
+        <a href="https://disease-dashboard.agroaiapp.me" target="_blank" rel="noopener" class="app-card">
+          <div class="app-card-header">
+            <div class="app-icon rose">🍃</div>
+            <span class="app-status live">Live</span>
+          </div>
+          <h3>Disease Detection</h3>
+          <p>Upload a leaf photo and get instant disease identification with treatment recommendations. Supports corn,
+            rice, wheat, millet and sugarcane.</p>
+          <div class="app-card-footer">
+            <span class="app-link">Try Detection →</span>
+            <span class="app-tag">Vision AI</span>
+          </div>
+        </a>
+
+        <!-- Auth -->
+        <a href="https://api.agroaiapp.me/docs#/Auth" target="_blank" rel="noopener" class="app-card">
+          <div class="app-card-header">
+            <div class="app-icon violet">🔐</div>
+            <span class="app-status live">Live</span>
+          </div>
+          <h3>Auth &amp; Profiles</h3>
+          <p>JWT-based authentication with farm profiles, soil history, and diagnosis records. Powered by Supabase for
+            24/7 availability.</p>
+          <div class="app-card-footer">
+            <span class="app-link">Auth API →</span>
+            <span class="app-tag">Supabase</span>
+          </div>
+        </a>
+
+        <!-- Mobile -->
+        <div class="app-card app-card--soon">
+          <div class="app-card-header">
+            <div class="app-icon green">📱</div>
+            <span class="app-status soon">Coming Soon</span>
+          </div>
+          <h3>AgroMobile</h3>
+          <p>Cross-platform Flutter companion app connecting farmers to the full AgroAI ecosystem. On-device ML
+            inference with cloud sync.</p>
+          <div class="app-card-footer">
+            <span class="app-link" style="color:var(--text-3);">In development</span>
+            <span class="app-tag">Flutter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════ -->
+  <section id="how" class="section-alt">
+    <div class="container">
+      <div class="pipeline-wrap">
+
+        <!-- Left: Text + Steps -->
+        <div class="pipeline-text">
+          <div class="section-tag">The Pipeline</div>
+          <h2 class="section-title">From soil to decision<br>in six transparent steps</h2>
+          <p class="section-desc">
+            Every recommendation travels the same clear path — no black box.
+            Raw sensor readings become a ranked, confidence-scored crop advisory.
+          </p>
+          <div class="pipeline-steps">
+            <div class="pipeline-step">
+              <div class="step-num">01</div>
+              <div class="step-body">
+                <h4>Live Soil Sensing</h4>
+                <p>5-in-1 NPK, pH, moisture, temperature &amp; EC captured over Modbus RTU.</p>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="step-num">02</div>
+              <div class="step-body">
+                <h4>Feature Engineering</h4>
+                <p>40 agronomic features assembled — ratios, interactions &amp; regional context.</p>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="step-num">03</div>
+              <div class="step-body">
+                <h4>ML Ensemble Prediction</h4>
+                <p>A calibrated gradient-boosted ensemble scores every candidate crop.</p>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="step-num">04</div>
+              <div class="step-body">
+                <h4>Confidence Calibration</h4>
+                <p>Isotonic calibration &amp; conformal sets keep confidence honest — never 100%.</p>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="step-num">05</div>
+              <div class="step-body">
+                <h4>AI Second Opinion</h4>
+                <p>An agronomy LLM cross-checks the result and surfaces disagreements.</p>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="step-num">06</div>
+              <div class="step-body">
+                <h4>Farmer Advisory</h4>
+                <p>Plain-language plan: what to plant, why, and what to watch for.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Live data visual -->
+        <div>
+          <div class="pipeline-visual reveal-up">
+            <div class="pipeline-visual-header">
+              <span class="pipeline-visual-title">🌱 Sample Output</span>
+              <span class="pipeline-visual-badge">Calibrated Result</span>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">Sensor Input</span>
+              <span class="pv-val">N:72 · P:45 · K:88 · pH:6.8</span>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">Features Built</span>
+              <span class="pv-val green">40 features</span>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">Top Recommendation</span>
+              <span class="pv-val">🌾 Wheat</span>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">ML Confidence</span>
+              <div class="pv-bar-wrap">
+                <div class="pv-mini-bar">
+                  <div class="pv-mini-bar-fill" style="width:89%"></div>
+                </div>
+                <span class="pv-val green">89.3%</span>
+              </div>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">AI Cross-check</span>
+              <span class="pv-val green">✓ Agrees</span>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">Region Prior</span>
+              <span class="pv-val">Maharashtra (Rabi)</span>
+            </div>
+            <div class="pv-row">
+              <span class="pv-key">Amendment Note</span>
+              <span class="pv-val amber">+ Urea 40 kg/acre</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CAPABILITIES
+  ═══════════════════════════════════ -->
+  <section id="capabilities">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-tag">Capabilities</div>
+        <h2 class="section-title">Intelligence that respects the real world</h2>
+        <p class="section-desc">
+          Soil is messy and every plot is different. These are the pieces that keep AgroAI
+          grounded, honest, and genuinely useful in the field.
+        </p>
+      </div>
+
+      <div class="feat-grid" data-stagger>
+        <div class="feat-card">
+          <div class="feat-icon green">🔬</div>
+          <h3>Live Soil Truth</h3>
+          <p>Decisions start from a real 5-in-1 probe — NPK, pH, moisture, temperature and EC — not from numbers typed
+            in by hand.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon amber">🎯</div>
+          <h3>Honest Confidence</h3>
+          <p>Isotonic calibration and conformal prediction keep certainty realistic. We cap confidence at 97% — no fake
+            100%.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon blue">🤝</div>
+          <h3>ML + AI Second Opinion</h3>
+          <p>A calibrated model proposes; an agronomy LLM reviews. Disagreements are surfaced, not silently averaged
+            away.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon violet">🧭</div>
+          <h3>Out-of-Range Safety</h3>
+          <p>Wild or unusual readings fall back to regional agronomic priors instead of returning a confident wrong
+            answer.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon rose">🍃</div>
+          <h3>Leaf Disease Vision</h3>
+          <p>Snap a photo of a leaf and get a disease identification plus a practical treatment note in seconds.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon teal">🧩</div>
+          <h3>Developer-First APIs</h3>
+          <p>Every capability is a documented REST endpoint behind one API gateway — easy to wire into your own tools.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       WHO IT'S FOR
+  ═══════════════════════════════════ -->
+  <section id="who" class="section-alt">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-tag">Who It's For</div>
+        <h2 class="section-title">One platform, three kinds of users</h2>
+        <p class="section-desc">
+          Whether you work the land, advise on it, or build software for it —
+          AgroAI meets you where you are.
+        </p>
+      </div>
+
+      <div class="who-grid" data-stagger>
+        <div class="who-card">
+          <div class="who-icon">🌾</div>
+          <h3>Farmers</h3>
+          <ul class="who-list">
+            <li>Plain-language crop guidance in your language</li>
+            <li>Know what to plant and exactly why</li>
+            <li>Quick leaf-disease checks from your phone</li>
+            <li>No manual data entry — your sensor does it</li>
+          </ul>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🧑‍🔬</div>
+          <h3>Agronomists</h3>
+          <ul class="who-list">
+            <li>Transparent step-by-step confidence scoring</li>
+            <li>Region-aware priors and rotation planning</li>
+            <li>Calibrated uncertainty you can defend</li>
+            <li>Raw API access for your own analysis</li>
+          </ul>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">💻</div>
+          <h3>Developers</h3>
+          <ul class="who-list">
+            <li>Documented REST + OpenAPI spec at /docs</li>
+            <li>One gateway for every service</li>
+            <li>Flutter companion SDK in development</li>
+            <li>JWT auth, CORS-ready, rate-limited</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       WHY US
+  ═══════════════════════════════════ -->
+  <section id="why">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-tag">What Makes Us Different</div>
+        <h2 class="section-title">Built on ground truth, tuned for honesty</h2>
+        <p class="section-desc">
+          Most platforms answer questions you type in. We start from what your soil
+          actually measures — and we tell you how confident we really are.
+        </p>
+      </div>
+      <div class="compare-wrap" data-stagger>
+        <div class="compare-card them">
+          <div class="compare-label">Typical Platforms</div>
+          <ul class="compare-list">
+            <li>Manual data entry, no live soil signal</li>
+            <li>Generic advice not tailored to your region</li>
+            <li>Often report inflated 100% certainty</li>
+            <li>Single model, no second opinion</li>
+            <li>Closed black-box scoring</li>
+            <li>No developer API access</li>
+          </ul>
+        </div>
+        <div class="compare-card us">
+          <div class="compare-label">AgroAI</div>
+          <ul class="compare-list">
+            <li>Real-time sensor data drives every call</li>
+            <li>Maharashtra agro-zone priors baked in</li>
+            <li>Calibrated confidence, capped &amp; conformal</li>
+            <li>ML + LLM dual-check on every result</li>
+            <li>Transparent, step-by-step pipeline</li>
+            <li>Full REST API with OpenAPI documentation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TECH STACK
+  ═══════════════════════════════════ -->
+  <section id="tech" class="section-alt">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-tag">Open Engineering</div>
+        <h2 class="section-title">The stack behind the science</h2>
+        <p class="section-desc">
+          Battle-tested open-source tools, wired together in a microservice architecture
+          you can inspect, fork, and build on.
+        </p>
+      </div>
+      <div class="tech-grid" data-stagger>
+        <div class="tech-item">
+          <div class="tech-icon">⚡</div>
+          <div>
+            <div class="tech-name">FastAPI</div>
+            <div class="tech-role">Backend APIs</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🐍</div>
+          <div>
+            <div class="tech-name">Python 3.11</div>
+            <div class="tech-role">Runtime</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🧠</div>
+          <div>
+            <div class="tech-name">scikit-learn</div>
+            <div class="tech-role">ML Models</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🐘</div>
+          <div>
+            <div class="tech-name">PostgreSQL</div>
+            <div class="tech-role">Database</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🔒</div>
+          <div>
+            <div class="tech-name">Supabase</div>
+            <div class="tech-role">Auth &amp; Storage</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">📊</div>
+          <div>
+            <div class="tech-name">Streamlit</div>
+            <div class="tech-role">Dashboards</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">☁️</div>
+          <div>
+            <div class="tech-name">Cloudflare</div>
+            <div class="tech-role">CDN &amp; Tunnel</div>
+          </div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">📡</div>
+          <div>
+            <div class="tech-name">Modbus RTU</div>
+            <div class="tech-role">Sensor Protocol</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FAQ
+  ═══════════════════════════════════ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-tag">FAQ</div>
+        <h2 class="section-title">Common questions, straight answers</h2>
+        <p class="section-desc">Everything you need to know about how AgroAI works.</p>
+      </div>
+
+      <div class="faq">
+        <details class="faq-item">
+          <summary>Do I need a soil sensor to use AgroAI?</summary>
+          <p>No — you can manually enter your NPK, pH, moisture and temperature readings from any source. The IoT sensor
+            integration is optional but gives you the most accurate, real-time results automatically.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why does the confidence score never reach 100%?</summary>
+          <p>We deliberately cap confidence at 97% using isotonic calibration and conformal prediction sets. Soil and
+            weather are too complex for any model to be perfectly certain — and we think honesty matters more than
+            impressive-looking numbers.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What crops does the engine support?</summary>
+          <p>The recommendation engine covers 30+ crop types common to Maharashtra — including rice, wheat, sugarcane,
+            cotton, jowar, bajra, groundnut, onion and several pulses. The disease-detection module supports corn, rice,
+            wheat, millet and sugarcane leaves.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is the API free to use?</summary>
+          <p>The API is currently in research preview. Core endpoints are open for testing. Commercial licensing terms
+            are being finalised — reach out if you'd like early access for your agtech project.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How does the AI second-opinion work?</summary>
+          <p>After the ML model scores each candidate crop, an agronomy-tuned LLM independently reviews the top result
+            against regional context, season and soil conditions. If the two disagree on a key point, both views are
+            surfaced in the response — not silently merged.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How is user authentication handled?</summary>
+          <p>We use Supabase for authentication, which means your account and farm data are stored securely with 24/7
+            availability — independent of whether the local API services are running. Your data is always accessible.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CTA BAND
+  ═══════════════════════════════════ -->
+  <section style="padding: 48px 0 96px;">
+    <div class="container">
+      <div class="cta-band reveal-up">
+        <div>
+          <h2>Ready to put your soil data to work?</h2>
+          <p>Get a calibrated crop recommendation in under two seconds. No account required to try the public dashboard.
+          </p>
+        </div>
+        <div class="cta-band-actions">
+          <a href="https://croprecommendationengine.streamlit.app" target="_blank" rel="noopener"
+            class="btn btn-cta-white btn-lg">
+            🌾 Open Crop Dashboard
+          </a>
+          <a href="https://api.agroaiapp.me/docs" target="_blank" rel="noopener" class="btn btn-cta-outline btn-lg">
+            📡 Browse the API
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" aria-label="AgroAI home">
+            <span class="nav-logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 22V12" stroke="#fff" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M12 13C12 8.5 8.5 5 3.5 5c0 5 3.5 8 8.5 8z" fill="#fff" />
+                <path d="M12.5 15c0-3.5 3-6.5 7.5-6.5 0 4.5-3.5 6.5-7.5 6.5z" fill="rgba(255,255,255,0.8)" />
+              </svg>
+            </span>
+            <span class="nav-logo-text"><span class="agro">Agro</span><span class="ai">AI</span></span>
+          </a>
+          <p>Precision agriculture grounded in real soil data. Built for farmers, agronomists and developers in
+            Maharashtra, India.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="https://api.agroaiapp.me/docs" target="_blank" rel="noopener">API Docs</a>
+          <a href="https://croprecommendationengine.streamlit.app" target="_blank" rel="noopener">Crop Dashboard</a>
+          <a href="https://sensor-dashboard.agroaiapp.me" target="_blank" rel="noopener">Sensor Hub</a>
+          <a href="https://disease-dashboard.agroaiapp.me" target="_blank" rel="noopener">Disease Detection</a>
+        </div>
+        <div class="footer-col">
+          <h4>Learn</h4>
+          <a href="#how">How It Works</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#who">Who It's For</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Developer</h4>
+          <a href="https://github.com/Aniket-Asawale" target="_blank" rel="noopener">GitHub Profile</a>
+          <a href="https://api.agroaiapp.me/docs" target="_blank" rel="noopener">OpenAPI Spec</a>
+          <a href="login.html">Sign In</a>
+          <a href="dashboard.html">Dashboard</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 AgroAI — Precision Agriculture Platform. Made in Maharashtra, India.</span>
+        <span class="footer-disclaimer">Research preview. Not for critical production use without agronomist
+          supervision.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Site scripts -->
+  <script src="main.js" defer></script>
+
+  <!-- Auth (Supabase) — updates Sign In button when logged in -->
+  <script type="module" src="auth.js"></script>
+
+</body>
+
+</html>

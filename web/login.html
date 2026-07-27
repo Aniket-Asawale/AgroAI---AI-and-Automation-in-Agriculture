@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Sign In — AgroAI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <script>
+    (function(){
+      try { document.documentElement.setAttribute('data-theme', localStorage.getItem('agroai-theme') || 'light'); }
+      catch(_){ document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="AgroAI home">
+        <span class="nav-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 22V12" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M12 13C12 8.5 8.5 5 3.5 5c0 5 3.5 8 8.5 8z" fill="#fff"/><path d="M12.5 15c0-3.5 3-6.5 7.5-6.5 0 4.5-3.5 6.5-7.5 6.5z" fill="rgba(255,255,255,0.8)"/></svg>
+        </span>
+        <span class="nav-logo-text"><span class="agro">Agro</span><span class="ai">AI</span></span>
+      </a>
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="icon-sun"  viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/></svg>
+        </button>
+        <a href="index.html" class="nav-login">← Back to site</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <!-- Logo -->
+      <div class="auth-logo-wrap">
+        <a href="index.html" class="nav-logo" style="margin-bottom:20px;">
+          <span class="nav-logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22V12" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M12 13C12 8.5 8.5 5 3.5 5c0 5 3.5 8 8.5 8z" fill="#fff"/><path d="M12.5 15c0-3.5 3-6.5 7.5-6.5 0 4.5-3.5 6.5-7.5 6.5z" fill="rgba(255,255,255,0.8)"/></svg>
+          </span>
+          <span class="nav-logo-text"><span class="agro">Agro</span><span class="ai">AI</span></span>
+        </a>
+      </div>
+
+      <h1 id="auth-title">Welcome back</h1>
+      <p class="auth-sub" id="auth-subtitle">Sign in to your AgroAI account.</p>
+
+      <form id="auth-form" autocomplete="on" novalidate>
+        <div class="auth-field" id="name-field" style="display:none;">
+          <label for="full-name">Full name</label>
+          <input type="text" id="full-name" autocomplete="name" placeholder="Your name">
+        </div>
+        <div class="auth-field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" autocomplete="email" required placeholder="you@farm.in">
+        </div>
+        <div class="auth-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password" required minlength="8" placeholder="Min. 8 characters">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn" style="width:100%;justify-content:center;margin-top:4px;">
+          Sign In
+        </button>
+      </form>
+
+      <div class="auth-divider">or continue with</div>
+
+      <button type="button" class="btn-google" id="google-btn">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-msg" id="auth-msg" role="alert"></div>
+
+      <p class="auth-toggle">
+        <span id="toggle-text">New to AgroAI?</span>&nbsp;
+        <a id="toggle-link" tabindex="0">Create an account</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { signInWithPassword, signUp, signInWithGoogle, authReady, getUser } from './auth.js';
+
+    const msg       = document.getElementById('auth-msg');
+    const submitBtn = document.getElementById('submit-btn');
+    const googleBtn = document.getElementById('google-btn');
+    const nameField = document.getElementById('name-field');
+    let mode = 'signin';
+
+    function show(text, kind) {
+      msg.className = 'auth-msg ' + kind;
+      msg.textContent = text;
+    }
+
+    // Already signed in → go to dashboard
+    if (authReady()) {
+      getUser().then(u => { if (u) window.location.replace('dashboard.html'); });
+    } else {
+      show('Auth is not configured. Add your Supabase URL and anon key in config.js.', 'warn');
+    }
+
+    function setMode(next) {
+      mode = next;
+      const isSignup = mode === 'signup';
+      document.getElementById('auth-title').textContent     = isSignup ? 'Create account' : 'Welcome back';
+      document.getElementById('auth-subtitle').textContent  = isSignup ? 'Start your personalized AgroAI dashboard.' : 'Sign in to your AgroAI account.';
+      submitBtn.textContent                                  = isSignup ? 'Create account' : 'Sign In';
+      nameField.style.display                                = isSignup ? 'block' : 'none';
+      document.getElementById('password').autocomplete      = isSignup ? 'new-password' : 'current-password';
+      document.getElementById('toggle-text').textContent    = isSignup ? 'Already have an account?' : 'New to AgroAI?';
+      document.getElementById('toggle-link').textContent    = isSignup ? 'Sign in' : 'Create an account';
+      msg.className = 'auth-msg';
+    }
+
+    document.getElementById('toggle-link').addEventListener('click', () =>
+      setMode(mode === 'signin' ? 'signup' : 'signin'));
+
+    document.getElementById('auth-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const name     = document.getElementById('full-name').value.trim();
+      if (!email || password.length < 8) {
+        show('Enter a valid email and a password of at least 8 characters.', 'error');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = mode === 'signup' ? 'Creating…' : 'Signing in…';
+      try {
+        if (mode === 'signup') {
+          const { error } = await signUp(email, password, { full_name: name });
+          if (error) throw error;
+          show('Account created! Check your email to confirm, then sign in.', 'ok');
+          setMode('signin');
+        } else {
+          const { error } = await signInWithPassword(email, password);
+          if (error) throw error;
+          window.location.replace('dashboard.html');
+        }
+      } catch (err) {
+        show(err.message || 'Something went wrong. Please try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = mode === 'signup' ? 'Create account' : 'Sign In';
+      }
+    });
+
+    googleBtn.addEventListener('click', async () => {
+      try {
+        const { error } = await signInWithGoogle();
+        if (error) throw error;
+      } catch (err) {
+        show(err.message || 'Google sign-in failed.', 'error');
+      }
+    });
+  </script>
+
+  <script src="main.js" defer></script>
+
+</body>
+</html>
