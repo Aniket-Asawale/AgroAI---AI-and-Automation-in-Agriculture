@@ -1,0 +1,56 @@
+# ─── Environment / secrets ───
+.env
+.global_env
+*.env.local
+.mobile_env
+*.pem
+*.key
+*.cert
+
+# ─── Python & Caches ───
+__pycache__/
+*.pytest_cache
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ─── Virtual environments ───
+venv/
+.venv/
+
+# ─── IDE & OS ───
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# ─── Data & Model artifacts (large CSVs, binaries, processed outputs) ───
+Crop_Recommendation_Engine/data/processed/
+Crop_Recommendation_Engine/data/datasets/batch_*.csv
+Crop_Recommendation_Engine/models/model_registry/
+*.pkl
+*.joblib
+*.h5
+*.pth
+*.onnx
+
+# ─── Logs, Databases & Runtime Files ───
+logs/
+*.log
+*.txt
+*.sqlite
+*.db
+AgroSensor/weather_cache.json
+openapi_dump.json
+cloudflare-tunnel-config.yaml
+*.yaml
+
+# ─── Research & Scratch Files ───
+research-paper-review.md
+Crop_Recommendation_Engine/docs/CROP_ENGINE_RESEARCH.md
+temp_*.py
+fix_manager.py
