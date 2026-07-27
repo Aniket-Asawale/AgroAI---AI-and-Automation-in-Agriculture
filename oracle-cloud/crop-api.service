@@ -1,0 +1,27 @@
+[Unit]
+Description=AgroModules Crop Recommendation API (FastAPI on port 8001)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules/Crop_Recommendation_Engine
+
+ExecStart=/opt/agromodules/Crop_Recommendation_Engine/venv/bin/python -m uvicorn api:app --host 127.0.0.1 --port 8001
+
+# Auto-restart on failure
+Restart=always
+RestartSec=5
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-crop
+
+[Install]
+WantedBy=multi-user.target

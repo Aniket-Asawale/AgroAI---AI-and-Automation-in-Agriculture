@@ -1,0 +1,35 @@
+[Unit]
+Description=AgroModules Cloudflare Tunnel Keeper
+Documentation=https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules
+
+# Tunnel config path (update if needed)
+Environment=CLOUDFLARE_API_TOKEN=your_cloudflare_api_token_here
+
+ExecStart=/usr/bin/cloudflared tunnel --no-autoupdate --config /opt/agromodules/cloudflare-tunnel-config.yaml run agromodules-api
+
+# Auto-restart on failure
+Restart=always
+RestartSec=5
+StartLimitBurst=10
+StartLimitIntervalSec=60
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-tunnel
+
+# Security
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/agromodules/logs
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,28 @@
+[Unit]
+Description=AgroModules Auth Service (FastAPI on port 8002)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules/Auth
+
+ExecStart=/opt/agromodules/Auth/venv/bin/python -m uvicorn main:app --host 127.0.0.1 --port 8002
+
+# Auto-restart on failure
+Restart=always
+RestartSec=5
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-auth
+
+[Install]
+WantedBy=multi-user.target

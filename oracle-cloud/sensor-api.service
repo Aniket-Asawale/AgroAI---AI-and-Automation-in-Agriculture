@@ -1,0 +1,33 @@
+[Unit]
+Description=AgroModules Sensor API (FastAPI on port 8000)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules/AgroSensor
+
+ExecStart=/opt/agromodules/AgroSensor/venv/bin/python main.py
+
+# Auto-restart on failure
+Restart=always
+RestartSec=5
+StartLimitBurst=10
+StartLimitIntervalSec=60
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-sensor
+
+# Security
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

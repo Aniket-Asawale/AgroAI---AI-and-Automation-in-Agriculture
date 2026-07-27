@@ -1,0 +1,27 @@
+[Unit]
+Description=AgroModules Disease Detection Dashboard (Gradio on port 7860)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules/Plant_Disease_Detection
+
+# Prefer local gateway when present; fall back to public gateway automatically.
+Environment=DISEASE_API_URL=http://127.0.0.1:8080/api/disease
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/opt/agromodules/Plant_Disease_Detection/venv/bin/python gradio_app.py
+
+Restart=always
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-disease-dashboard
+
+[Install]
+WantedBy=multi-user.target
+

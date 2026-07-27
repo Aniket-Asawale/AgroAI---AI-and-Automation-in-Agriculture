@@ -1,0 +1,27 @@
+[Unit]
+Description=AgroModules Disease Detection API (FastAPI on port 8003)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules/Plant_Disease_Detection
+
+ExecStart=/opt/agromodules/Plant_Disease_Detection/venv/bin/python -m uvicorn api:app --host 127.0.0.1 --port 8003
+
+# Auto-restart on failure
+Restart=always
+RestartSec=5
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-disease
+
+[Install]
+WantedBy=multi-user.target

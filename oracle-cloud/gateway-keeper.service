@@ -1,0 +1,33 @@
+[Unit]
+Description=AgroModules API Gateway (FastAPI on port 8080)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/agromodules/ApiGateway
+
+ExecStart=/opt/agromodules/ApiGateway/venv/bin/python main.py
+
+# Auto-restart on failure
+Restart=always
+RestartSec=5
+StartLimitBurst=10
+StartLimitIntervalSec=60
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=agro-gateway
+
+# Security
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
