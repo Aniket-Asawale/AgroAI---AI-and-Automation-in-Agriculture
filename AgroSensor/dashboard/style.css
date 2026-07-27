@@ -1,0 +1,359 @@
+/* ═══ AgroSensor Monitoring Dashboard ═══ */
+:root {
+    --bg-base: #0b1117;
+    --bg-panel: #131a24;
+    --bg-card: #172030;
+    --border: #1e2d3d;
+    --border-hover: #2a4a5a;
+    --text-primary: #e2e8f0;
+    --text-secondary: #8899aa;
+    --text-muted: #556677;
+    --accent: #22c55e;
+    --accent-dim: #166534;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --orange: #f97316;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { overflow-y: scroll; }
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.mono { font-family: var(--font-mono); }
+
+
+/* ── Top Navigation Bar ── */
+.topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 24px; height: 52px;
+    background: var(--bg-panel); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+}
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon { color: var(--accent); display: flex; align-items: center; }
+.brand-name { font-weight: 700; font-size: 1.05rem; color: var(--text-primary); }
+.brand-sep { color: var(--text-muted); font-weight: 300; }
+.brand-sub { color: var(--text-secondary); font-size: 0.8rem; font-weight: 400; }
+
+.topbar-status { display: flex; align-items: center; gap: 20px; }
+.status-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; }
+.status-dot.online { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+.status-dot.offline { background: var(--red); box-shadow: 0 0 6px var(--red); }
+.status-label { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.65rem; }
+.status-val { color: var(--text-secondary); font-size: 0.75rem; }
+
+.btn-read {
+    display: flex; align-items: center; gap: 5px;
+    background: var(--accent-dim); color: var(--accent); border: 1px solid #1a7a3a;
+    padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; font-family: var(--font-sans);
+}
+.btn-read:hover { background: #1a7a3a; }
+.btn-read:active { transform: scale(0.97); }
+.btn-read:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Parameter Cards Grid ── */
+.params-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    padding: 20px 24px;
+}
+
+/* ── Weather Bar ── */
+.weather-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 0 24px 4px;
+}
+.weather-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.weather-icon {
+    font-size: 28px;
+    line-height: 1;
+}
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.weather-desc {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+.weather-detail {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+.weather-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.city-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+.city-select {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    outline: none;
+    min-width: 140px;
+}
+.city-select:focus {
+    border-color: var(--accent);
+}
+.city-select option {
+    background: var(--bg-panel);
+    color: var(--text-primary);
+}
+.soil-badge {
+    background: rgba(34,197,94,0.12);
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: help;
+}
+
+.param-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+.param-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.param-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; }
+.param-icon {
+    width: 32px; height: 32px; border-radius: 8px; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+}
+.temp-icon  { background: rgba(239,68,68,0.15); color: var(--red); }
+.moist-icon { background: rgba(59,130,246,0.15); color: var(--blue); }
+.ec-icon    { background: rgba(245,158,11,0.15); color: var(--amber); }
+.ph-icon    { background: rgba(168,85,247,0.15); color: var(--purple); }
+.n-icon     { background: rgba(34,197,94,0.15);  color: var(--accent); }
+.p-icon     { background: rgba(6,182,212,0.15);  color: var(--cyan); }
+.k-icon     { background: rgba(249,115,22,0.15); color: var(--orange); }
+
+.chem-symbol { font-weight: 700; font-size: 0.9rem; }
+.param-meta { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.param-name { font-size: 0.72rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.3px; }
+.param-unit { font-size: 0.65rem; color: var(--text-muted); }
+
+.param-status {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--text-muted); flex-shrink: 0; margin-top: 2px;
+}
+.param-status.optimal { background: var(--accent); box-shadow: 0 0 4px var(--accent); }
+.param-status.warning { background: var(--amber); box-shadow: 0 0 4px var(--amber); }
+.param-status.critical { background: var(--red); box-shadow: 0 0 4px var(--red); }
+
+.param-value {
+    font-size: 1.65rem; font-weight: 700; color: var(--text-primary);
+    line-height: 1; margin-bottom: 12px; letter-spacing: -0.5px;
+}
+
+/* Range indicator */
+.param-range { margin-top: auto; }
+.range-track {
+    height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px;
+    position: relative; overflow: visible;
+}
+.range-fill {
+    height: 100%; width: 0%; border-radius: 2px;
+    transition: width 0.6s ease, background 0.3s;
+    background: var(--accent);
+}
+.range-thumb {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--text-primary); border: 2px solid var(--accent);
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    left: 0%; transition: left 0.6s ease;
+}
+.range-labels {
+    display: flex; justify-content: space-between; margin-top: 4px;
+    font-size: 0.55rem; color: var(--text-muted); font-family: var(--font-mono);
+}
+
+
+/* ── Panels (Chart & Log) ── */
+.panel {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 10px; margin: 0 24px 16px; padding: 20px;
+}
+.panel-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+}
+.panel-header h2 {
+    font-size: 0.9rem; font-weight: 600; color: var(--text-primary);
+    letter-spacing: 0.2px;
+}
+
+.chart-controls { display: flex; gap: 4px; }
+.ctrl-btn {
+    background: transparent; color: var(--text-muted); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 5px; font-size: 0.7rem; font-weight: 500;
+    cursor: pointer; transition: all 0.15s; font-family: var(--font-sans);
+}
+.ctrl-btn:hover { color: var(--text-secondary); border-color: var(--border-hover); }
+.ctrl-btn.active { background: var(--accent-dim); color: var(--accent); border-color: #1a7a3a; }
+
+.chart-wrap { height: 320px; position: relative; }
+.chart-wrap canvas { width: 100% ; height: 100% ; }
+
+/* ── Data Log Table ── */
+.log-count { font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono); }
+.log-scroll {
+    max-height: 360px; overflow-y: auto;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+.log-scroll::-webkit-scrollbar { width: 5px; }
+.log-scroll::-webkit-scrollbar-track { background: transparent; }
+.log-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.log-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.log-table thead { position: sticky; top: 0; z-index: 1; }
+.log-table th {
+    background: var(--bg-base); color: var(--text-muted); padding: 8px 10px;
+    text-align: left; font-weight: 600; font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.3px;
+    border-bottom: 1px solid var(--border);
+}
+.log-table td {
+    padding: 7px 10px; border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.75rem;
+}
+.log-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ── Data Log Actions ── */
+.log-actions { display: flex; align-items: center; gap: 8px; }
+.btn-refresh-log {
+    background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
+    border-radius: 6px; width: 28px; height: 28px; font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.btn-refresh-log:hover { border-color: var(--accent); color: var(--accent); }
+.btn-refresh-log.spinning { animation: spin 0.6s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* ── Sensor Toggle Button ── */
+.btn-toggle-sensor {
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px;
+    font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-left: 6px;
+    transition: all 0.2s; letter-spacing: 0.5px;
+}
+.btn-toggle-sensor.sensor-on {
+    background: rgba(34,197,94,0.15); color: #22c55e; border-color: #22c55e;
+}
+.btn-toggle-sensor.sensor-off {
+    background: rgba(239,68,68,0.15); color: #ef4444; border-color: #ef4444;
+}
+.btn-toggle-sensor:hover { opacity: 0.8; }
+.btn-toggle-sensor:disabled { opacity: 0.5; cursor: wait; }
+
+/* ── Add City Button ── */
+.btn-add-city {
+    background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent);
+    border-radius: 6px; width: 30px; height: 30px; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; margin-left: 6px;
+    transition: background 0.2s;
+}
+.btn-add-city:hover { background: var(--accent); color: #fff; }
+
+/* ── Modal ── */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+}
+.modal-box {
+    background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 32px; width: 420px; max-width: 95vw;
+}
+.modal-box h3 { margin-bottom: 18px; font-size: 1.1rem; }
+.modal-box label {
+    display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;
+}
+.modal-box input, .modal-box select {
+    display: block; width: 100%; margin-top: 4px; padding: 8px 10px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text-primary); font-size: 0.85rem; outline: none;
+}
+.modal-box input:focus, .modal-box select:focus { border-color: var(--accent); }
+.modal-row { display: flex; gap: 12px; }
+.modal-row label { flex: 1; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+.btn-cancel {
+    background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
+    padding: 8px 18px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+}
+.btn-submit {
+    background: var(--accent); border: none; color: #fff; padding: 8px 22px;
+    border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem;
+}
+.btn-submit:hover { opacity: 0.9; }
+.btn-cancel:hover { border-color: var(--text-secondary); }
+.modal-msg { margin-top: 10px; font-size: 0.8rem; text-align: center; min-height: 1.2em; }
+
+/* ── Footer ── */
+.footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 24px; font-size: 0.68rem; color: var(--text-muted);
+    border-top: 1px solid var(--border); margin-top: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+    .params-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px) {
+    .params-grid { grid-template-columns: repeat(3, 1fr); }
+    .topbar { flex-direction: column; height: auto; padding: 10px 16px; gap: 8px; }
+    .topbar-status { flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 600px) {
+    .params-grid { grid-template-columns: repeat(2, 1fr); padding: 12px; gap: 8px; }
+    .panel { margin: 0 12px 12px; padding: 14px; }
+    .chart-wrap { height: 240px; }
+    .param-value { font-size: 1.3rem; }
+    .brand-sub { display: none; }
+    .brand-sep { display: none; }
+}

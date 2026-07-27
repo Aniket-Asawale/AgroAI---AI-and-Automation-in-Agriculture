@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroSensor — Soil Monitoring System</title>
+    <link rel="stylesheet" href="/style.css?v=8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+
+<!-- ── Developer Warning (shown on public URL) ── -->
+<div id="dev-warning" style="display:none; background:#f59e0b; color:#1f2937; padding:12px 20px; text-align:center; font-weight:500; font-size:14px;">
+    ⚠️ <strong>DEVELOPER ACCESS ONLY</strong> — This dashboard shows simulated data for demonstration. 
+    Real-time sensor data, MQTT cloud connection, and database access require local developer environment. 
+    <span style="font-size:12px; opacity:0.8;">(127.0.0.1:8000 API not accessible externally)</span>
+</div>
+
+<!-- ── API Connection Error Warning ── -->
+<div id="api-error-warning" style="display:none; background:#ef4444; color:#ffffff; padding:12px 20px; text-align:center; font-weight:500; font-size:14px;">
+    ❌ <strong>API NOT CONNECTED</strong> — Backend API is unreachable. 
+    Please check that the API server is running and <button onclick="location.reload()" style="background:#fff; color:#ef4444; border:none; padding:4px 12px; border-radius:4px; cursor:pointer; font-weight:600;">Hard Refresh</button> the page.
+</div>
+
+<!-- ── Top Nav ── -->
+<nav class="topbar">
+    <div class="topbar-brand">
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z"/><path d="M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+        </div>
+        <span class="brand-name">AgroSensor</span>
+        <span class="brand-sep">|</span>
+        <span class="brand-sub">Soil Monitoring System</span>
+    </div>
+    <div class="topbar-status">
+        <div class="status-item">
+            <span class="status-dot" id="sensor-dot"></span>
+            <span class="status-label" id="sensor-label">Sensor</span>
+            <span class="status-val" id="sensor-status">--</span>
+        </div>
+        <div class="status-item">
+            <span class="status-dot" id="db-dot"></span>
+            <span class="status-label">Database</span>
+            <span class="status-val" id="db-status">--</span>
+        </div>
+        <div class="status-item" id="mqtt-status-item" style="display:none">
+            <span class="status-dot" id="mqtt-dot"></span>
+            <span class="status-label">MQTT Cloud</span>
+            <span class="status-val" id="mqtt-status">--</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">Uptime</span>
+            <span class="status-val mono" id="uptime-val">--</span>
+        </div>
+        <div class="status-item">
+            <span class="status-label">Last Read</span>
+            <span class="status-val mono" id="last-read-val">--</span>
+        </div>
+        <button class="btn-read" id="btn-read" onclick="triggerRead()">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            Read Now
+        </button>
+    </div>
+</nav>
+
+<!-- ── Weather Panel ── -->
+<section class="weather-bar" id="weather-bar">
+    <div class="weather-left">
+        <div class="weather-icon" id="weather-icon">☀️</div>
+        <div class="weather-info">
+            <span class="weather-desc" id="weather-desc">Loading weather...</span>
+            <span class="weather-detail" id="weather-detail">--</span>
+        </div>
+    </div>
+    <div class="weather-right">
+        <span class="soil-badge" id="soil-badge" style="display:none" title=""></span>
+        <label class="city-label" for="city-select">📍 Sensor Location</label>
+        <select id="city-select" class="city-select" onchange="changeCity(this.value)">
+            <option value="">Loading...</option>
+        </select>
+        <button id="btn-toggle-sensor" class="btn-toggle-sensor sensor-off" onclick="toggleSensor()" title="Toggle sensor on/off">⏻ OFF</button>
+        <button class="btn-add-city" onclick="openAddCityModal()" title="Add new city">＋</button>
+    </div>
+</section>
+
+<!-- ── Parameter Cards ── -->
+<section class="params-grid">
+    <div class="param-card" id="card-temperature" data-param="temperature">
+        <div class="param-top">
+            <div class="param-icon temp-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+            <div class="param-meta"><span class="param-name">Temperature</span><span class="param-unit">°C</span></div>
+            <div class="param-status" id="status-temperature"></div>
+        </div>
+        <div class="param-value mono" id="val-temperature">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-temperature"></div><div class="range-thumb" id="thumb-temperature"></div></div><div class="range-labels"><span>0</span><span>50</span></div></div>
+    </div>
+    <div class="param-card" id="card-moisture" data-param="moisture">
+        <div class="param-top">
+            <div class="param-icon moist-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+            <div class="param-meta"><span class="param-name">Moisture</span><span class="param-unit">%</span></div>
+            <div class="param-status" id="status-moisture"></div>
+        </div>
+        <div class="param-value mono" id="val-moisture">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-moisture"></div><div class="range-thumb" id="thumb-moisture"></div></div><div class="range-labels"><span>0</span><span>100</span></div></div>
+    </div>
+    <div class="param-card" id="card-ec" data-param="ec">
+        <div class="param-top">
+            <div class="param-icon ec-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div class="param-meta"><span class="param-name">Conductivity</span><span class="param-unit">μS/cm</span></div>
+            <div class="param-status" id="status-ec"></div>
+        </div>
+        <div class="param-value mono" id="val-ec">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-ec"></div><div class="range-thumb" id="thumb-ec"></div></div><div class="range-labels"><span>0</span><span>3000</span></div></div>
+    </div>
+    <div class="param-card" id="card-ph" data-param="ph">
+        <div class="param-top">
+            <div class="param-icon ph-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div>
+            <div class="param-meta"><span class="param-name">pH Level</span><span class="param-unit">pH</span></div>
+            <div class="param-status" id="status-ph"></div>
+        </div>
+        <div class="param-value mono" id="val-ph">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-ph"></div><div class="range-thumb" id="thumb-ph"></div></div><div class="range-labels"><span>3</span><span>9</span></div></div>
+    </div>
+    <div class="param-card" id="card-nitrogen" data-param="nitrogen">
+        <div class="param-top">
+            <div class="param-icon n-icon"><span class="chem-symbol">N</span></div>
+            <div class="param-meta"><span class="param-name">Nitrogen</span><span class="param-unit">mg/kg</span></div>
+            <div class="param-status" id="status-nitrogen"></div>
+        </div>
+        <div class="param-value mono" id="val-nitrogen">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-nitrogen"></div><div class="range-thumb" id="thumb-nitrogen"></div></div><div class="range-labels"><span>0</span><span>300</span></div></div>
+    </div>
+    <div class="param-card" id="card-phosphorus" data-param="phosphorus">
+        <div class="param-top">
+            <div class="param-icon p-icon"><span class="chem-symbol">P</span></div>
+            <div class="param-meta"><span class="param-name">Phosphorus</span><span class="param-unit">mg/kg</span></div>
+            <div class="param-status" id="status-phosphorus"></div>
+        </div>
+        <div class="param-value mono" id="val-phosphorus">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-phosphorus"></div><div class="range-thumb" id="thumb-phosphorus"></div></div><div class="range-labels"><span>0</span><span>250</span></div></div>
+    </div>
+    <div class="param-card" id="card-potassium" data-param="potassium">
+        <div class="param-top">
+            <div class="param-icon k-icon"><span class="chem-symbol">K</span></div>
+            <div class="param-meta"><span class="param-name">Potassium</span><span class="param-unit">mg/kg</span></div>
+            <div class="param-status" id="status-potassium"></div>
+        </div>
+        <div class="param-value mono" id="val-potassium">--</div>
+        <div class="param-range"><div class="range-track"><div class="range-fill" id="bar-potassium"></div><div class="range-thumb" id="thumb-potassium"></div></div><div class="range-labels"><span>0</span><span>300</span></div></div>
+    </div>
+</section>
+
+<!-- ── Trend Chart ── -->
+<section class="panel chart-panel">
+    <div class="panel-header">
+        <h2>Trend Analysis</h2>
+        <div class="chart-controls">
+            <button class="ctrl-btn active" data-range="24h" onclick="setRange('24h')">24 Hours</button>
+            <button class="ctrl-btn" data-range="7d" onclick="setRange('7d')">7 Days</button>
+        </div>
+    </div>
+    <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
+</section>
+
+<!-- ── Data Log ── -->
+<section class="panel log-panel">
+    <div class="panel-header">
+        <h2>Data Log</h2>
+        <div class="log-actions">
+            <button class="btn-refresh-log" onclick="refreshLog()" title="Refresh data log">&#x21bb;</button>
+            <span class="log-count" id="log-count">0 records</span>
+        </div>
+    </div>
+    <div class="log-scroll">
+        <table class="log-table">
+            <thead>
+                <tr>
+                    <th>Sensor</th>
+                    <th>Timestamp</th>
+                    <th>Temp °C</th>
+                    <th>Moist %</th>
+                    <th>EC μS/cm</th>
+                    <th>pH</th>
+                    <th>N mg/kg</th>
+                    <th>P mg/kg</th>
+                    <th>K mg/kg</th>
+                </tr>
+            </thead>
+            <tbody id="log-body"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ── Add City Modal ── -->
+<div class="modal-overlay" id="add-city-modal" style="display:none" onclick="if(event.target===this)closeAddCityModal()">
+    <div class="modal-box">
+        <h3>Add New City</h3>
+        <form onsubmit="submitAddCity(event)">
+            <label>City Name<input type="text" id="ac-name" required minlength="2" maxlength="50" placeholder="e.g. Sangli"></label>
+            <label>State<input type="text" id="ac-state" required minlength="2" maxlength="50" placeholder="e.g. Maharashtra"></label>
+            <div class="modal-row">
+                <label>Latitude<input type="number" id="ac-lat" required step="0.0001" min="-90" max="90" placeholder="16.85"></label>
+                <label>Longitude<input type="number" id="ac-lon" required step="0.0001" min="-180" max="180" placeholder="74.56"></label>
+            </div>
+            <label>Soil Type
+                <select id="ac-soil">
+                    <option>Alluvial</option><option>Black (Regur)</option><option>Red</option>
+                    <option>Laterite</option><option>Sandy</option><option>Clay</option>
+                </select>
+            </label>
+            <label>Number of Sensors<input type="number" id="ac-sensors" value="2" min="1" max="10"></label>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeAddCityModal()">Cancel</button>
+                <button type="submit" class="btn-submit" id="ac-submit">Add City</button>
+            </div>
+            <div class="modal-msg" id="ac-msg"></div>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <span>AgroSensor v1.0 — 7-in-1 Soil Sensor Monitoring</span>
+    <span id="poll-info">Poll interval: --</span>
+</footer>
+
+<script src="/app.js?v=9"></script>
+</body>
+</html>
