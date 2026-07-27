@@ -1,0 +1,76 @@
+
+flowchart TD
+    start(["🎯 ML Prediction\nTop-3 with calibrated\nconfidence scores"])
+
+    %% Season Filter
+    sf{"📅 Season Filter\nIs crop valid for\ncurrent season?"}
+    sf_yes["✅ Keep crop"]
+    sf_no["❌ Remove crop\nfrom Top-3"]
+
+    %% Guardrail 1: Soil Incompatibility
+    g1{"🚫 Soil-Crop\nIncompatibility?\ne.g., Rice on Sandy soil"}
+    g1_penalty["⬇️ Penalty: −15%\nNote: 'Root rot risk\nin {soil_type}'"]
+    g1_pass["✅ No penalty"]
+
+    %% Guardrail 2: EC Sensitivity
+    g2{"⚡ EC > Crop\nThreshold?\ne.g., Soybean > 1600 μS/cm"}
+    g2_penalty["⬇️ Penalty: −10%\nNote: 'EC stress:\n{ec} > {threshold}'"]
+    g2_pass["✅ No penalty"]
+
+    %% Guardrail 3: Drainage
+    g3{"💧 Drainage\nMismatch?\ne.g., Wheat in\nPoorly Drained"}
+    g3_boost["⬆️ Boost: +20%\nNote: 'Ideal drainage\nfor {crop}'"]
+    g3_penalty["⬇️ Penalty: −20%\nNote: 'Drainage risk\nfor {crop}'"]
+    g3_pass["✅ No change"]
+
+    %% Guardrail 4: Regional Dominance
+    g4{"📍 Crop dominant\nin this region?\ne.g., Cotton in\nVidarbha"}
+    g4_high["⬆️ Boost: +15%\nNote: 'Regionally\ndominant crop'"]
+    g4_med["⬆️ Boost: +5%\nNote: 'Moderate\nregional fit'"]
+    g4_none["✅ No change"]
+
+    %% Guardrail 5: Rotation
+    g5{"🔄 Same crop\nas last season?"}
+    g5_penalty["⬇️ Penalty: −5%\nNote: 'Rotation\nrecommended'"]
+    g5_pass["✅ No penalty"]
+
+    %% Final
+    clamp["📏 Clamp confidence\nto 1-99% range"]
+    rerank["🏅 Re-rank Top-3\nby adjusted score"]
+    flags["🚦 Assign Flag\n≥75% → 🟢 HIGH\n55-74% → 🟡 MEDIUM\n<55% → 🟠 LOW"]
+    result(["📊 Final Recommendation\n+ Guardrail Notes\n+ Farmer Advisory"])
+
+    start --> sf
+    sf -->|"Valid"| sf_yes --> g1
+    sf -->|"Invalid"| sf_no
+
+    g1 -->|"Incompatible"| g1_penalty --> g2
+    g1 -->|"Compatible"| g1_pass --> g2
+
+    g2 -->|"Over threshold"| g2_penalty --> g3
+    g2 -->|"Within range"| g2_pass --> g3
+
+    g3 -->|"Ideal match"| g3_boost --> g4
+    g3 -->|"Mismatch"| g3_penalty --> g4
+    g3 -->|"Neutral"| g3_pass --> g4
+
+    g4 -->|"High dominance\n(weight > 0.7)"| g4_high --> g5
+    g4 -->|"Moderate\n(weight 0.3-0.7)"| g4_med --> g5
+    g4 -->|"No data"| g4_none --> g5
+
+    g5 -->|"Same crop"| g5_penalty --> clamp
+    g5 -->|"Different"| g5_pass --> clamp
+
+    clamp --> rerank --> flags --> result
+
+    style start fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style result fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20
+    style sf fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style g1 fill:#ffebee,stroke:#c62828,color:#b71c1c
+    style g2 fill:#fff3e0,stroke:#e65100,color:#bf360c
+    style g3 fill:#e0f7fa,stroke:#00838f,color:#004d40
+    style g4 fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    style g5 fill:#fff9c4,stroke:#f9a825,color:#333
+    style clamp fill:#f5f5f5,stroke:#616161,color:#212121
+    style rerank fill:#f5f5f5,stroke:#616161,color:#212121
+    style flags fill:#f5f5f5,stroke:#616161,color:#212121

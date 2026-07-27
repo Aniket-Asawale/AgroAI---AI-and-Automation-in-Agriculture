@@ -1,0 +1,10 @@
+[server]
+port = 8501
+enableXsrfProtection = false
+
+
+[client]
+showErrorDetails = true
+
+[logger]
+level = "debug"

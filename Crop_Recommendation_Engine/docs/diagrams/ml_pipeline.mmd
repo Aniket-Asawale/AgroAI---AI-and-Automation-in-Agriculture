@@ -1,0 +1,78 @@
+
+flowchart TD
+    subgraph DATAGEN["Phase 1: Synthetic Data Generation"]
+        d1["📍 Location Sampling\n(100 Maharashtra cities)"]
+        d2["🌱 Crop-Soil-Season\nAssignment\n(Agronomic Rules)"]
+        d3["📡 Sensor Data\nGeneration\n(NPK, pH, EC, T, M)"]
+        d4["☁️ Weather Fetch\n(Open-Meteo API\n2023-2025)"]
+        d5["✅ Crop Label\nValidation\n(Rule Engine)"]
+        d1 --> d2 --> d3 --> d4 --> d5
+    end
+
+    subgraph PREPROCESS["Phase 2: Preprocessing"]
+        pp1["🔢 Label Encoding\n(22 crops → 0-21)"]
+        pp2["📊 Ordinal Encoding\n(soil texture,\ndrainage class)"]
+        pp3["🔥 One-Hot Encoding\n(soil type,\nagro zone, season)"]
+        pp4["📈 Feature Scaling\n(StandardScaler)"]
+        pp5["🧪 Temporal Split\n(Train: 2023-24\nTest: 2025)"]
+        d5 --> pp1 --> pp2 --> pp3 --> pp4 --> pp5
+    end
+
+    subgraph FEATENG["Phase 3: Feature Engineering"]
+        fe1["✖️ NPK Interactions\n(N×P, N×K, P×K)"]
+        fe2["📐 NPK Ratios\n(N%, P%, K%)"]
+        fe3["🌡️ Climate Deltas\n(sensor_T − weather_T)"]
+        fe4["💧 Irrigation Signal\n(moisture × EC)"]
+        pp5 --> fe1 & fe2 & fe3 & fe4
+    end
+
+    subgraph TRAINING["Phase 4: Model Training"]
+        t1["🌲 Random Forest\n(n=500, depth=28)"]
+        t2["⚡ XGBoost"]
+        t3["💡 LightGBM"]
+        t4["🔄 SVM + KNN"]
+        t5["🗳️ Voting Ensemble\n(RF+XGB+LGBM)"]
+        t6["🏆 Model Selection\n(Best by Accuracy)"]
+        t7["🌡️ Temperature\nCalibration\n(Platt Scaling)"]
+        fe1 & fe2 & fe3 & fe4 --> t1 & t2 & t3 & t4 & t5
+        t1 & t2 & t3 & t4 & t5 --> t6
+        t6 --> t7
+    end
+
+    subgraph INFERENCE["Phase 5: Inference Pipeline"]
+        i1["📥 Raw Input\n(21 parameters)"]
+        i2["🔧 Feature\nEngineering\n(same as training)"]
+        i3["🎯 RF Prediction\n(22-class probs)"]
+        i4["📏 Temperature\nScaling"]
+        i5["🏅 Top-3\nSelection"]
+        i6["📅 Season\nFilter"]
+        i1 --> i2 --> i3 --> i4 --> i5 --> i6
+    end
+
+    subgraph GUARDRAILS["Phase 6: Agronomic Guardrails"]
+        g1["🚫 Soil\nIncompatibility\n(−15%)"]
+        g2["⚡ EC Sensitivity\n(−10%)"]
+        g3["💧 Drainage\nMismatch\n(±20%)"]
+        g4["📍 Regional\nDominance\n(+5-15%)"]
+        g5["🔄 Rotation\nHistory\n(±5%)"]
+        i6 --> g1 --> g2 --> g3 --> g4 --> g5
+    end
+
+    subgraph OUTPUT["Phase 7: Output"]
+        o1["📊 Confidence\nFlags\n(🟢🟡🟠)"]
+        o2["👨‍🌾 Farmer\nAdvisory"]
+        o3["🧪 Fertilizer\nCalculator"]
+        o4["📋 JSON API\nResponse"]
+        g5 --> o1 & o2 & o3
+        o1 & o2 & o3 --> o4
+    end
+
+    t7 -->|"Saved to\nmodel_registry/"| INFERENCE
+
+    style DATAGEN fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style PREPROCESS fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    style FEATENG fill:#e0f2f1,stroke:#00695c,color:#004d40
+    style TRAINING fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style INFERENCE fill:#fff3e0,stroke:#e65100,color:#bf360c
+    style GUARDRAILS fill:#fce4ec,stroke:#c62828,color:#b71c1c
+    style OUTPUT fill:#f1f8e9,stroke:#558b2f,color:#33691e

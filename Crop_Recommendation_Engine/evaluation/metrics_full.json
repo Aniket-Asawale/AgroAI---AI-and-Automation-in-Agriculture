@@ -1,0 +1,123 @@
+{
+  "results": [
+    {
+      "model": "Voting (RF+XGB+LGBM)",
+      "train_accuracy": 0.9944684689464888,
+      "val_accuracy": 0.9756613756613757,
+      "val_f1_macro": 0.8750660031389816,
+      "val_f1_weighted": 0.9766306957692771,
+      "test_accuracy": 0.9746031746031746,
+      "test_f1_macro": 0.8900934934199517,
+      "test_f1_weighted": 0.9752740366263078,
+      "accuracy": 0.9746031746031746,
+      "f1_macro": 0.8900934934199517,
+      "f1_weighted": 0.9752740366263078,
+      "train_time_s": 179.7
+    },
+    {
+      "model": "LightGBM",
+      "train_accuracy": 0.9972673971294405,
+      "val_accuracy": 0.9755291005291006,
+      "val_f1_macro": 0.8734342238001482,
+      "val_f1_weighted": 0.9763066531424188,
+      "test_accuracy": 0.9736772486772487,
+      "test_f1_macro": 0.8829560378313505,
+      "test_f1_weighted": 0.9743865822950504,
+      "accuracy": 0.9736772486772487,
+      "f1_macro": 0.8829560378313505,
+      "f1_weighted": 0.9743865822950504,
+      "train_time_s": 51.2
+    },
+    {
+      "model": "XGBoost",
+      "train_accuracy": 0.9894808054545937,
+      "val_accuracy": 0.9753968253968254,
+      "val_f1_macro": 0.8719202067194712,
+      "val_f1_weighted": 0.9760023971591716,
+      "test_accuracy": 0.9740740740740741,
+      "test_f1_macro": 0.8915665645905714,
+      "test_f1_weighted": 0.9746299071734057,
+      "accuracy": 0.9740740740740741,
+      "f1_macro": 0.8915665645905714,
+      "f1_weighted": 0.9746299071734057,
+      "train_time_s": 67.1
+    },
+    {
+      "model": "SVM (RBF)",
+      "train_accuracy": 0.9905022152654339,
+      "val_accuracy": 0.9724867724867725,
+      "val_f1_macro": 0.8563807258493945,
+      "val_f1_weighted": 0.9730882279384979,
+      "test_accuracy": 0.9740740740740741,
+      "test_f1_macro": 0.874465926043136,
+      "test_f1_weighted": 0.974985215785959,
+      "accuracy": 0.9740740740740741,
+      "f1_macro": 0.874465926043136,
+      "f1_weighted": 0.974985215785959,
+      "train_time_s": 185.5
+    },
+    {
+      "model": "KNN",
+      "train_accuracy": 1.0,
+      "val_accuracy": 0.9505291005291006,
+      "val_f1_macro": 0.7917625458510128,
+      "val_f1_weighted": 0.9534500842445449,
+      "test_accuracy": 0.9554232804232804,
+      "test_f1_macro": 0.8024389645231946,
+      "test_f1_weighted": 0.9571530149883778,
+      "accuracy": 0.9554232804232804,
+      "f1_macro": 0.8024389645231946,
+      "f1_weighted": 0.9571530149883778,
+      "train_time_s": 99.6
+    },
+    {
+      "model": "Random Forest",
+      "train_accuracy": 0.9518876183906826,
+      "val_accuracy": 0.9367724867724868,
+      "val_f1_macro": 0.7834051351525485,
+      "val_f1_weighted": 0.9447637942345629,
+      "test_accuracy": 0.9478835978835979,
+      "test_f1_macro": 0.7860553431403237,
+      "test_f1_weighted": 0.9517722352289943,
+      "accuracy": 0.9478835978835979,
+      "f1_macro": 0.7860553431403237,
+      "f1_weighted": 0.9517722352289943,
+      "train_time_s": 34.9
+    }
+  ],
+  "cal_stats": {
+    "method": "isotonic",
+    "temperature": 1.0,
+    "brier_raw": 0.0015876415360527368,
+    "brier_calibrated": 0.0010780745200514464,
+    "mean_prob_raw": 0.8788396003952358,
+    "mean_prob_cal": 0.981345670751699,
+    "pct_over99_raw": 0.0035714285714285713,
+    "pct_over99_cal": 0.8023809523809524,
+    "pct_uncertain_raw": 0.02671957671957672,
+    "pct_uncertain_cal": 0.007936507936507936,
+    "ece_val_cal": 0.003959303805785291,
+    "ece_test_raw": 0.09576357420793871,
+    "ece_test_cal": 0.007333136879744431,
+    "top1_test": 0.9755291005291006,
+    "top3_test": 0.9932539682539683,
+    "top5_test": 0.9945767195767196,
+    "balanced_acc_test": 0.8862576987308965,
+    "cohen_kappa_test": 0.9735606699823772,
+    "mcc_test": 0.9736219834101727
+  },
+  "gates": {
+    "train_val_gap": 0.018807093285113097,
+    "val_test_gap": 0.0010582010582010914,
+    "train_val_gap_ok": true,
+    "val_test_gap_ok": true
+  },
+  "conformal": {
+    "alpha": 0.1,
+    "quantile": 0.030714000797766317,
+    "empirical_coverage_val": 0.9022486772486773,
+    "n_calibration": 7560
+  },
+  "best_name": "Voting (RF+XGB+LGBM)",
+  "stamp": "2026_05"
+}

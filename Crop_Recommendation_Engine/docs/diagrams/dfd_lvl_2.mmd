@@ -1,0 +1,129 @@
+
+flowchart TB
+    %% External Entities
+    farmer["👨‍🌾 Farmer / User"]
+    sensor["📡 AgroSensor\n(NPK, pH, EC, T, M)"]
+    weather_api["🌦️ Open-Meteo API\n(Weather Data)"]
+    mobile["📱 AgroMobile\n(Flutter App)"]
+
+    %% Process 1: Data Acquisition
+    subgraph P1["1.0 Data Acquisition"]
+        p1_1["1.1 Sensor\nData Ingestion"]
+        p1_2["1.2 Weather\nData Fetch"]
+        p1_3["1.3 Location &\nZone Detection"]
+        p1_4["1.4 Input\nValidation"]
+    end
+
+    %% Process 2: Feature Engineering
+    subgraph P2["2.0 Feature Engineering"]
+        p2_1["2.1 Soil Feature\nEncoding\n(one-hot, ordinal)"]
+        p2_2["2.2 NPK Interaction\nComputation\n(N×P, N×K, P×K)"]
+        p2_3["2.3 Climate Feature\nDerivation\n(ratios, deltas)"]
+        p2_4["2.4 Irrigation Signal\nGeneration"]
+    end
+
+    %% Process 3: ML Prediction
+    subgraph P3["3.0 ML Prediction Pipeline"]
+        p3_1["3.1 Random Forest\nClassification\n(22 crop classes)"]
+        p3_2["3.2 Temperature\nScaling Calibration\n(T=0.589)"]
+        p3_3["3.3 Top-3\nSelection &\nConfidence Flags"]
+        p3_4["3.4 Hard Season\nFilter"]
+    end
+
+    %% Process 4: Agronomic Guardrails
+    subgraph P4["4.0 Post-Prediction Guardrails"]
+        p4_1["4.1 Soil-Crop\nIncompatibility\nCheck (−15%)"]
+        p4_2["4.2 EC Sensitivity\nPenalty (−10%)"]
+        p4_3["4.3 Drainage\nCompatibility\n(±20%)"]
+        p4_4["4.4 Regional\nDominance\nBoost (+5–15%)"]
+        p4_5["4.5 Rotation\nHistory\nAdjustment (±5%)"]
+    end
+
+    %% Process 5: Advisory Generation
+    subgraph P5["5.0 Advisory Generation"]
+        p5_1["5.1 Farmer\nAdvisory Builder\n(why, warnings, tips)"]
+        p5_2["5.2 Soil Health\nAssessment"]
+        p5_3["5.3 Fertilizer\nAmendment\nCalculator"]
+        p5_4["5.4 Rotation\nPlan Generator\n(Kharif→Rabi→Zaid)"]
+    end
+
+    %% Data Stores
+    ds1[("D1: Synthetic\nDataset\n(features.csv)")]
+    ds2[("D2: Trained Model\n& Calibrator\n(model_registry/)")]
+    ds3[("D3: Crop Profiles\n& Agronomic Rules\n(crop_profiles.py)")]
+    ds4[("D4: Label\nEncoders\n(encoders.json)")]
+
+    %% Output
+    output["📊 Prediction Results\n+ Farmer Advisory\n(JSON / UI)"]
+
+    %% Flows
+    farmer -->|"Soil params,\nlocation, season"| p1_4
+    sensor -->|"N, P, K, pH,\nEC, Temp, Moisture"| p1_1
+    weather_api -->|"Temp, Humidity,\nRainfall, Wind"| p1_2
+    farmer -->|"Lat, Lon,\nAgro Zone"| p1_3
+
+    p1_1 --> p1_4
+    p1_2 --> p1_4
+    p1_3 --> p1_4
+
+    p1_4 -->|"Validated\ninput vector"| p2_1
+    p1_4 --> p2_2
+    p1_4 --> p2_3
+    p1_4 --> p2_4
+
+    ds4 -.->|"Encoding\nmappings"| p2_1
+
+    p2_1 -->|"Encoded\nfeature matrix"| p3_1
+    p2_2 --> p3_1
+    p2_3 --> p3_1
+    p2_4 --> p3_1
+
+    ds2 -.->|"RF model\nweights"| p3_1
+    ds2 -.->|"Temperature\nscalar"| p3_2
+
+    p3_1 -->|"Raw\nprobabilities"| p3_2
+    p3_2 -->|"Calibrated\nprobabilities"| p3_3
+    ds3 -.->|"Season-crop\nmapping"| p3_4
+    p3_3 --> p3_4
+
+    p3_4 -->|"Top-3 with\nflags"| p4_1
+    ds3 -.->|"Soil rules"| p4_1
+    ds3 -.->|"EC thresholds"| p4_2
+    ds3 -.->|"Drainage rules"| p4_3
+    ds3 -.->|"Regional weights"| p4_4
+
+    p4_1 --> p4_2
+    p4_2 --> p4_3
+    p4_3 --> p4_4
+    p4_4 --> p4_5
+
+    p4_5 -->|"Adjusted\ntop-3"| p5_1
+    p4_5 --> p5_2
+    ds3 -.->|"Crop NPK\nrequirements"| p5_3
+    ds3 -.->|"Rotation\nrules"| p5_4
+
+    p5_1 --> output
+    p5_2 --> output
+    p5_3 --> output
+    p5_4 --> output
+
+    output -->|"JSON API\nresponse"| mobile
+    output -->|"Streamlit\nUI"| farmer
+
+    %% Styling
+    style P1 fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style P2 fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+    style P3 fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style P4 fill:#fff3e0,stroke:#e65100,color:#bf360c
+    style P5 fill:#fce4ec,stroke:#c62828,color:#b71c1c
+
+    style ds1 fill:#fffde7,stroke:#f9a825,color:#333
+    style ds2 fill:#fffde7,stroke:#f9a825,color:#333
+    style ds3 fill:#fffde7,stroke:#f9a825,color:#333
+    style ds4 fill:#fffde7,stroke:#f9a825,color:#333
+
+    style farmer fill:#e0f7fa,stroke:#00838f,color:#004d40
+    style sensor fill:#e0f7fa,stroke:#00838f,color:#004d40
+    style weather_api fill:#e0f7fa,stroke:#00838f,color:#004d40
+    style mobile fill:#e0f7fa,stroke:#00838f,color:#004d40
+    style output fill:#c8e6c9,stroke:#2e7d32,color:#1b5e20

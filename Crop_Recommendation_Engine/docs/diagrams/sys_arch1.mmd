@@ -1,0 +1,77 @@
+
+flowchart LR
+    subgraph CLIENT["Client Layer"]
+        direction TB
+        browser["🖥️ Web Browser\n(Streamlit UI\nPort 8501)"]
+        flutter["📱 AgroMobile\n(Flutter App)"]
+        ngrok["🌐 ngrok Tunnel\n(Public HTTPS)"]
+    end
+
+    subgraph API["API Layer — FastAPI (Port 8002)"]
+        direction TB
+        health["/health\nGET"]
+        predict["/predict\nPOST"]
+        predict_live["/predict/live\nPOST"]
+        cors["CORS\nMiddleware"]
+    end
+
+    subgraph ENGINE["Inference Engine"]
+        direction TB
+        recommender["CropRecommender\n(Singleton)"]
+        feat_eng["Feature Engineering\n(30+ features)"]
+        rf_model["Random Forest\nClassifier\n(n=500, depth=28)"]
+        calibrator["Temperature Scaling\nCalibrator (T=0.589)"]
+        guardrails["Agronomic\nGuardrails\n(5 rule types)"]
+        advisory["Farmer Advisory\nBuilder"]
+        fertilizer["NPK Deficit\nCalculator"]
+    end
+
+    subgraph DATA["Data & Model Store"]
+        direction TB
+        model_pkl["best_model_2026_03.pkl\n(Trained RF)"]
+        cal_pkl["calibrator_2026_03.pkl\n(Temperature scalar)"]
+        scaler_pkl["scaler_2026_03.pkl\n(StandardScaler)"]
+        encoders["label_encoders.json\n(Crop ↔ Index)"]
+        profiles["crop_profiles.py\n(Agronomic Rules)"]
+        features_csv["features.csv\n(50K+ rows)"]
+    end
+
+    subgraph EXTERNAL["External Services"]
+        direction TB
+        openmeteo["☁️ Open-Meteo\nWeather API"]
+        agrosensor["📡 AgroSensor\nIoT Module"]
+        groq["🤖 Groq/Mistral\nLLM (Validation)"]
+    end
+
+    browser --> cors
+    flutter --> ngrok --> cors
+    cors --> health
+    cors --> predict
+    cors --> predict_live
+
+    predict --> recommender
+    predict_live --> recommender
+
+    recommender --> feat_eng
+    feat_eng --> rf_model
+    rf_model --> calibrator
+    calibrator --> guardrails
+    guardrails --> advisory
+    guardrails --> fertilizer
+
+    model_pkl -.-> rf_model
+    cal_pkl -.-> calibrator
+    scaler_pkl -.-> feat_eng
+    encoders -.-> feat_eng
+    profiles -.-> guardrails
+    profiles -.-> advisory
+
+    openmeteo -.->|"Temp, Rain,\nHumidity"| feat_eng
+    agrosensor -.->|"NPK, pH,\nEC, Moisture"| feat_eng
+    groq -.->|"Cross-validation\n(offline)"| recommender
+
+    style CLIENT fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    style API fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    style ENGINE fill:#fff3e0,stroke:#e65100,color:#bf360c
+    style DATA fill:#fffde7,stroke:#f9a825,color:#333
+    style EXTERNAL fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
